@@ -21,9 +21,13 @@ bash zeph.sh ZEPHYR_ADDRESS_LO
 bash zeph.sh <WALLET> [POOL] [RIG_NAME]
 ```
 
-- Default pool: `eu.zeph.k1pool.com:1123` (official pool.zephyrprotocol.com lagi down)
+- Default pool: `zeph.kryptex.network:7030` (Kryptex, PPS+)
 - Pool lain yang bisa dipilih:
-  - k1pool EU  : `eu.zeph.k1pool.com:1123`
+  - kryptex global : `zeph.kryptex.network:7030`
+- kryptex EU     : `zeph-eu.kryptex.network:7030`
+- kryptex US     : `zeph-us.kryptex.network:7030`
+- kryptex SG     : `zeph-sg.kryptex.network:7030`
+- k1pool EU      : `eu.zeph.k1pool.com:1123`
   - k1pool US  : `us.zeph.k1pool.com:1123`
   - kryptex    : `zeph.kryptex.network:7030`
   - nanopool   : `zeph-asia1.nanopool.org:10900`
