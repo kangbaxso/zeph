@@ -8,9 +8,12 @@
 #  or:
 #     bash zeph.sh YOUR_ZEPH_ADDRESS [POOL_HOST:PORT] [RIG_NAME]
 #
-#  POOL default: eu.zeph.k1pool.com:1123   (official pool.zephyrprotocol.com currently down)
+#  POOL default: zeph.kryptex.network:7030  (Kryptex, PPS+)
 #  Choose any live ZEPH pool:
-#     - k1pool EU  : eu.zeph.k1pool.com:1123
+#     - kryptex EU     : zeph-eu.kryptex.network:7030
+#     - kryptex US     : zeph-us.kryptex.network:7030
+#     - kryptex SG     : zeph-sg.kryptex.network:7030
+#     - k1pool EU      : eu.zeph.k1pool.com:1123
 #     - k1pool US  : us.zeph.k1pool.com:1123
 #     - kryptex    : zeph.kryptex.network:7030
 #     - nanopool   : zeph-asia1.nanopool.org:10900
