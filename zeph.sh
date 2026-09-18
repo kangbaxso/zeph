@@ -26,7 +26,7 @@ WALLET="${1:-}"
 [ -z "$WALLET" ] && { echo "ERR: butuh wallet address ZEPH."; echo "   bash zeph.sh ZEPHxxxxx... [pool:port] [rig]"; exit 1; }
 
 # ---------- pool & rig ----------
-POOL="${2:-eu.zeph.k1pool.com:1123}"
+POOL="${2:-zeph.kryptex.network:7030}"
 RIG="${3:-$(hostname 2>/dev/null || echo rig)}"
 ALGO="rx/0"
 
