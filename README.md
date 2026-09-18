@@ -18,20 +18,31 @@ bash zeph.sh ZEPHYR_ADDRESS_LO
 ## Opsi
 
 ```bash
-bash zeph.sh <WALLET> [POOL] [RIG_NAME]
+bash zeph.sh <WALLET> [POOL] [RIG_NAME] [THREADS]
 ```
 
-- Default pool: `zeph.kryptex.network:7030` (Kryptex, PPS+)
-- Pool lain yang bisa dipilih:
+- `WALLET` — address ZEPH lo (wajib)
+- `POOL` — default `zeph.kryptex.network:7030` (Kryptex, PPS+). Pilihan lain:
   - kryptex global : `zeph.kryptex.network:7030`
-- kryptex EU     : `zeph-eu.kryptex.network:7030`
-- kryptex US     : `zeph-us.kryptex.network:7030`
-- kryptex SG     : `zeph-sg.kryptex.network:7030`
-- k1pool EU      : `eu.zeph.k1pool.com:1123`
-  - k1pool US  : `us.zeph.k1pool.com:1123`
-  - kryptex    : `zeph.kryptex.network:7030`
-  - nanopool   : `zeph-asia1.nanopool.org:10900`
-  - dxpool     : `zeph.ss.dxpool.com:4333`
+  - kryptex EU     : `zeph-eu.kryptex.network:7030`
+  - kryptex US     : `zeph-us.kryptex.network:7030`
+  - kryptex SG     : `zeph-sg.kryptex.network:7030`
+  - k1pool EU      : `eu.zeph.k1pool.com:1123`
+  - k1pool US      : `us.zeph.k1pool.com:1123`
+  - nanopool       : `zeph-asia1.nanopool.org:10900`
+  - dxpool         : `zeph.ss.dxpool.com:4333`
+- `RIG_NAME` — nama rig biar keliatan di dashboard pool (default: hostname)
+- `THREADS` — jumlah core CPU buat mining:
+  - kosong → 75% dari total core (default, masih sisain buat kerja lain)
+  - angka → pake sekian thread, contoh `4`
+  - `max`  → pake SEMUA core
+  - `half` → pake setengah dari total core
+
+Contoh — mining cuma 2 core, pool US, rig bernama "office":
+
+```bash
+bash zeph.sh ZEPHYR_ADDRESS_LO zeph-us.kryptex.network:7030 office 2
+```
 
 ## Yang dilakukan script
 

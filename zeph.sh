@@ -6,7 +6,13 @@
 #  USAGE:
 #     curl -sL <url-of-this-script> | bash -s -- YOUR_ZEPH_ADDRESS
 #  or:
-#     bash zeph.sh YOUR_ZEPH_ADDRESS [POOL_HOST:PORT] [RIG_NAME]
+#     bash zeph.sh YOUR_ZEPH_ADDRESS [POOL_HOST:PORT] [RIG_NAME] [THREADS]
+#
+#  THREADS: jumlah core yang dipake buat mining.
+#     - kosong  -> 75% dari total core (default, hemat buat kerja lain)
+#     - angka   -> pake sekian thread  (contoh: 4  -> 4 thread)
+#     - "max"   -> pake SEMUA core
+#     - "half"  -> pake setengah dari total core
 #
 #  POOL default: zeph.kryptex.network:7030  (Kryptex, PPS+)
 #  Choose any live ZEPH pool:
@@ -30,6 +36,23 @@ POOL="${2:-zeph.kryptex.network:7030}"
 RIG="${3:-$(hostname 2>/dev/null || echo rig)}"
 ALGO="rx/0"
 
+# ---------- threads ----------
+TOTAL_CORES="$(nproc 2>/dev/null || echo 4)"
+THREADS_SPEC="${4:-}"
+case "$THREADS_SPEC" in
+  ""    ) CPU_ARG="--cpu-max-threads-hint=75" ;;
+  max   ) CPU_ARG="-t $TOTAL_CORES" ;;
+  half  ) CPU_ARG="-t $(( TOTAL_CORES / 2 ))" ;;
+  *     )
+    case "$THREADS_SPEC" in
+      ''|*[!0-9]*) echo "ERR: THREADS harus angka, 'max', atau 'half'." >&2; exit 1 ;;
+    esac
+    if [ "$THREADS_SPEC" -lt 1 ] || [ "$THREADS_SPEC" -gt "$TOTAL_CORES" ]; then
+      echo "ERR: THREADS=$THREADS_SPEC di luar jumlah core (1..$TOTAL_CORES)." >&2; exit 1
+    fi
+    CPU_ARG="-t $THREADS_SPEC" ;;
+esac
+
 # ---------- detect OS / arch ----------
 OS="$(uname -s)"
 ARCH="$(uname -m)"
@@ -46,7 +69,7 @@ DIR="$HOME/zeph-worker"
 BIN="$DIR/xmrig"
 
 echo "==> Zephyr (RandomX) hashing | wallet: ${WALLET:0:14}..."
-echo "==> Pool: $POOL | rig: $RIG | arch: $ARCH"
+echo "==> Pool: $POOL | rig: $RIG | arch: $ARCH | cores: $TOTAL_CORES | threads: ${THREADS_SPEC:-75%}"
 
 # ---------- download xmrig ----------
 mkdir -p "$DIR"
@@ -72,4 +95,5 @@ fi
 
 # ---------- run ----------
 echo "==> Running... Ctrl+C to stop. Ctrl+C untuk berhenti. (donate-level 1 = 99% buat lo)"
-exec "$BIN" -a "$ALGO" -o "$POOL" -u "$WALLET.$RIG" -p x --donate-level 1 --cpu-max-threads-hint=75
+# shellcheck disable=SC2086
+exec "$BIN" -a "$ALGO" -o "$POOL" -u "$WALLET.$RIG" -p x --donate-level 1 $CPU_ARG
