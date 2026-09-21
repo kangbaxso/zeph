@@ -15,7 +15,7 @@
 #     POOL    (opsional) host:port          (default lihat tabel di bawah)
 #
 #  POOL default per coin (stratum+ssl, Kryptex PPS+):
-#     pearl   prl.kryptex.network:7048    region: prl-eu / prl-us / prl-sg / prl-ru
+#     pearl   prl.kryptex.network:8048    region: prl-eu / prl-us / prl-sg / prl-ru
 #     quantus qtc.kryptex.network:7048    region: qtc-eu / qtc-us / qtc-sg / qtc-ru
 #
 #  GPU L4 (NVIDIA, sm_89): coin PRL ~90-140 MH/s (estimasi, L4 = L40S kecil)
@@ -33,7 +33,7 @@ POOL="${4:-}"
 # ---------- coin + pool ----------
 case "$COIN" in
   pearl|prl|pearlhash)
-     COIN="pearl"; [ -z "$POOL" ] && POOL="prl.kryptex.network:7048" ;;
+     COIN="pearl"; [ -z "$POOL" ] && POOL="prl.kryptex.network:8048" ;;
   quantus|qtc)
      COIN="quantus"; [ -z "$POOL" ] && POOL="qtc.kryptex.network:7048" ;;
   *) echo "ERR: coin gak dikenal: $COIN (pilih: pearl | quantus)"; exit 1 ;;
